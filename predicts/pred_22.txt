@@ -1,0 +1,14 @@
+column: {'xmin': '704', 'ymin': '914', 'xmax': '718', 'ymax': '939'}
+beam: {'xmin': '721', 'ymin': '615', 'xmax': '838', 'ymax': '632'}
+column: {'xmin': '944', 'ymin': '913', 'xmax': '956', 'ymax': '927'}
+column: {'xmin': '703', 'ymin': '605', 'xmax': '717', 'ymax': '631'}
+column: {'xmin': '942', 'ymin': '618', 'xmax': '956', 'ymax': '631'}
+column: {'xmin': '1040', 'ymin': '605', 'xmax': '1054', 'ymax': '630'}
+column: {'xmin': '1041', 'ymin': '912', 'xmax': '1055', 'ymax': '939'}
+beam: {'xmin': '702', 'ymin': '608', 'xmax': '718', 'ymax': '913'}
+beam: {'xmin': '717', 'ymin': '913', 'xmax': '839', 'ymax': '928'}
+beam: {'xmin': '830', 'ymin': '613', 'xmax': '847', 'ymax': '931'}
+column: {'xmin': '834', 'ymin': '913', 'xmax': '848', 'ymax': '927'}
+slab: {'xmin': '725', 'ymin': '606', 'xmax': '840', 'ymax': '909'}
+column: {'xmin': '832', 'ymin': '618', 'xmax': '845', 'ymax': '631'}
+column: {'xmin': '383', 'ymin': '532', 'xmax': '398', 'ymax': '550'}

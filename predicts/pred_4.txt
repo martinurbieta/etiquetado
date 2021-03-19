@@ -1,12 +1,9 @@
-column: [705 912 718 939]
-column: [704 606 718 630]
-column: [1040  603 1055  630]
-column: [1041  912 1055  939]
-beam: [720 616 842 632]
-beam: [832 616 848 919]
-column: [944 617 957 630]
-beam: [717 912 841 928]
-beam: [703 627 719 928]
-column: [945 912 957 926]
-slab: [728 593 829 933]
-column: [836 913 848 927]
+slab: {'xmin': '599', 'ymin': '982', 'xmax': '766', 'ymax': '1237'}
+slab: {'xmin': '785', 'ymin': '1272', 'xmax': '885', 'ymax': '1415'}
+column: {'xmin': '580', 'ymin': '977', 'xmax': '593', 'ymax': '989'}
+slab: {'xmin': '569', 'ymin': '1396', 'xmax': '886', 'ymax': '1600'}
+column: {'xmin': '872', 'ymin': '1271', 'xmax': '887', 'ymax': '1283'}
+beam: {'xmin': '596', 'ymin': '1185', 'xmax': '700', 'ymax': '1197'}
+beam: {'xmin': '603', 'ymin': '976', 'xmax': '767', 'ymax': '988'}
+column: {'xmin': '581', 'ymin': '1428', 'xmax': '592', 'ymax': '1445'}
+column: {'xmin': '664', 'ymin': '1562', 'xmax': '679', 'ymax': '1579'}
