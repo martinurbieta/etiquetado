@@ -1,0 +1,1222 @@
+{
+    "verion": "3.16.7",
+    "flags": {},
+    "shapes": [
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    178.0,
+                    400.0
+                ],
+                [
+                    203.0,
+                    400.0
+                ],
+                [
+                    203.0,
+                    414.0
+                ],
+                [
+                    178.0,
+                    414.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    546.0,
+                    400.0
+                ],
+                [
+                    571.0,
+                    400.0
+                ],
+                [
+                    571.0,
+                    414.0
+                ],
+                [
+                    546.0,
+                    414.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    853.0,
+                    400.0
+                ],
+                [
+                    877.0,
+                    400.0
+                ],
+                [
+                    877.0,
+                    414.0
+                ],
+                [
+                    853.0,
+                    414.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1231.0,
+                    660.0
+                ],
+                [
+                    1256.0,
+                    660.0
+                ],
+                [
+                    1256.0,
+                    674.0
+                ],
+                [
+                    1231.0,
+                    674.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1229.0,
+                    398.0
+                ],
+                [
+                    1254.0,
+                    398.0
+                ],
+                [
+                    1254.0,
+                    412.0
+                ],
+                [
+                    1229.0,
+                    412.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    853.0,
+                    660.0
+                ],
+                [
+                    877.0,
+                    660.0
+                ],
+                [
+                    877.0,
+                    674.0
+                ],
+                [
+                    853.0,
+                    674.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    544.0,
+                    660.0
+                ],
+                [
+                    568.0,
+                    660.0
+                ],
+                [
+                    568.0,
+                    674.0
+                ],
+                [
+                    544.0,
+                    674.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    179.0,
+                    660.0
+                ],
+                [
+                    203.0,
+                    660.0
+                ],
+                [
+                    203.0,
+                    674.0
+                ],
+                [
+                    179.0,
+                    674.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    178.0,
+                    996.0
+                ],
+                [
+                    203.0,
+                    996.0
+                ],
+                [
+                    203.0,
+                    1010.0
+                ],
+                [
+                    178.0,
+                    1010.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    179.0,
+                    1256.0
+                ],
+                [
+                    203.0,
+                    1256.0
+                ],
+                [
+                    203.0,
+                    1269.0
+                ],
+                [
+                    179.0,
+                    1269.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    546.0,
+                    1256.0
+                ],
+                [
+                    571.0,
+                    1256.0
+                ],
+                [
+                    571.0,
+                    1270.0
+                ],
+                [
+                    546.0,
+                    1270.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    544.0,
+                    996.0
+                ],
+                [
+                    568.0,
+                    996.0
+                ],
+                [
+                    568.0,
+                    1010.0
+                ],
+                [
+                    544.0,
+                    1010.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    851.0,
+                    993.0
+                ],
+                [
+                    882.0,
+                    993.0
+                ],
+                [
+                    882.0,
+                    1010.0
+                ],
+                [
+                    851.0,
+                    1010.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    852.0,
+                    1256.0
+                ],
+                [
+                    876.0,
+                    1256.0
+                ],
+                [
+                    876.0,
+                    1270.0
+                ],
+                [
+                    852.0,
+                    1270.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1230.0,
+                    996.0
+                ],
+                [
+                    1255.0,
+                    996.0
+                ],
+                [
+                    1255.0,
+                    1010.0
+                ],
+                [
+                    1230.0,
+                    1010.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "column",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1231.0,
+                    1257.0
+                ],
+                [
+                    1255.0,
+                    1257.0
+                ],
+                [
+                    1255.0,
+                    1269.0
+                ],
+                [
+                    1231.0,
+                    1269.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    204.0,
+                    1255.0
+                ],
+                [
+                    543.0,
+                    1255.0
+                ],
+                [
+                    543.0,
+                    1270.0
+                ],
+                [
+                    204.0,
+                    1270.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    196.0,
+                    576.0
+                ],
+                [
+                    552.0,
+                    576.0
+                ],
+                [
+                    552.0,
+                    591.0
+                ],
+                [
+                    196.0,
+                    591.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    202.0,
+                    399.0
+                ],
+                [
+                    541.0,
+                    399.0
+                ],
+                [
+                    541.0,
+                    414.0
+                ],
+                [
+                    202.0,
+                    414.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    197.0,
+                    828.0
+                ],
+                [
+                    554.0,
+                    828.0
+                ],
+                [
+                    554.0,
+                    843.0
+                ],
+                [
+                    197.0,
+                    843.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    575.0,
+                    399.0
+                ],
+                [
+                    847.0,
+                    399.0
+                ],
+                [
+                    847.0,
+                    415.0
+                ],
+                [
+                    575.0,
+                    415.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    573.0,
+                    575.0
+                ],
+                [
+                    847.0,
+                    575.0
+                ],
+                [
+                    847.0,
+                    591.0
+                ],
+                [
+                    573.0,
+                    591.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    572.0,
+                    656.0
+                ],
+                [
+                    847.0,
+                    656.0
+                ],
+                [
+                    847.0,
+                    670.0
+                ],
+                [
+                    572.0,
+                    670.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    572.0,
+                    760.0
+                ],
+                [
+                    849.0,
+                    760.0
+                ],
+                [
+                    849.0,
+                    776.0
+                ],
+                [
+                    572.0,
+                    776.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    573.0,
+                    893.0
+                ],
+                [
+                    849.0,
+                    893.0
+                ],
+                [
+                    849.0,
+                    910.0
+                ],
+                [
+                    573.0,
+                    910.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    572.0,
+                    1033.0
+                ],
+                [
+                    848.0,
+                    1033.0
+                ],
+                [
+                    848.0,
+                    1049.0
+                ],
+                [
+                    572.0,
+                    1049.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    571.0,
+                    1255.0
+                ],
+                [
+                    848.0,
+                    1255.0
+                ],
+                [
+                    848.0,
+                    1271.0
+                ],
+                [
+                    571.0,
+                    1271.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    879.0,
+                    399.0
+                ],
+                [
+                    1227.0,
+                    399.0
+                ],
+                [
+                    1227.0,
+                    415.0
+                ],
+                [
+                    879.0,
+                    415.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    870.0,
+                    575.0
+                ],
+                [
+                    1238.0,
+                    575.0
+                ],
+                [
+                    1238.0,
+                    591.0
+                ],
+                [
+                    870.0,
+                    591.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    879.0,
+                    660.0
+                ],
+                [
+                    1227.0,
+                    660.0
+                ],
+                [
+                    1227.0,
+                    676.0
+                ],
+                [
+                    879.0,
+                    676.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    872.0,
+                    827.0
+                ],
+                [
+                    1239.0,
+                    827.0
+                ],
+                [
+                    1239.0,
+                    843.0
+                ],
+                [
+                    872.0,
+                    843.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    879.0,
+                    1255.0
+                ],
+                [
+                    1227.0,
+                    1255.0
+                ],
+                [
+                    1227.0,
+                    1272.0
+                ],
+                [
+                    879.0,
+                    1272.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    177.0,
+                    675.0
+                ],
+                [
+                    196.0,
+                    675.0
+                ],
+                [
+                    196.0,
+                    992.0
+                ],
+                [
+                    177.0,
+                    992.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    177.0,
+                    1009.0
+                ],
+                [
+                    196.0,
+                    1009.0
+                ],
+                [
+                    196.0,
+                    1253.0
+                ],
+                [
+                    177.0,
+                    1253.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    177.0,
+                    416.0
+                ],
+                [
+                    196.0,
+                    416.0
+                ],
+                [
+                    196.0,
+                    658.0
+                ],
+                [
+                    177.0,
+                    658.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    555.0,
+                    417.0
+                ],
+                [
+                    573.0,
+                    417.0
+                ],
+                [
+                    573.0,
+                    656.0
+                ],
+                [
+                    555.0,
+                    656.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    554.0,
+                    677.0
+                ],
+                [
+                    572.0,
+                    677.0
+                ],
+                [
+                    572.0,
+                    992.0
+                ],
+                [
+                    554.0,
+                    992.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    554.0,
+                    1012.0
+                ],
+                [
+                    572.0,
+                    1012.0
+                ],
+                [
+                    572.0,
+                    1254.0
+                ],
+                [
+                    554.0,
+                    1254.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    852.0,
+                    415.0
+                ],
+                [
+                    870.0,
+                    415.0
+                ],
+                [
+                    870.0,
+                    654.0
+                ],
+                [
+                    852.0,
+                    654.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    851.0,
+                    676.0
+                ],
+                [
+                    870.0,
+                    676.0
+                ],
+                [
+                    870.0,
+                    992.0
+                ],
+                [
+                    851.0,
+                    992.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    851.0,
+                    1011.0
+                ],
+                [
+                    870.0,
+                    1011.0
+                ],
+                [
+                    870.0,
+                    1254.0
+                ],
+                [
+                    851.0,
+                    1254.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    705.0,
+                    1048.0
+                ],
+                [
+                    721.0,
+                    1048.0
+                ],
+                [
+                    721.0,
+                    1255.0
+                ],
+                [
+                    705.0,
+                    1255.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    669.0,
+                    910.0
+                ],
+                [
+                    684.0,
+                    910.0
+                ],
+                [
+                    684.0,
+                    1034.0
+                ],
+                [
+                    669.0,
+                    1034.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    617.0,
+                    670.0
+                ],
+                [
+                    632.0,
+                    670.0
+                ],
+                [
+                    632.0,
+                    759.0
+                ],
+                [
+                    617.0,
+                    759.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1066.0,
+                    591.0
+                ],
+                [
+                    1081.0,
+                    591.0
+                ],
+                [
+                    1081.0,
+                    658.0
+                ],
+                [
+                    1066.0,
+                    658.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1240.0,
+                    415.0
+                ],
+                [
+                    1257.0,
+                    415.0
+                ],
+                [
+                    1257.0,
+                    661.0
+                ],
+                [
+                    1240.0,
+                    661.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1238.0,
+                    676.0
+                ],
+                [
+                    1257.0,
+                    676.0
+                ],
+                [
+                    1257.0,
+                    995.0
+                ],
+                [
+                    1238.0,
+                    995.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        },
+        {
+            "label": "beam",
+            "line_color": null,
+            "fill_color": null,
+            "points": [
+                [
+                    1239.0,
+                    1011.0
+                ],
+                [
+                    1257.0,
+                    1011.0
+                ],
+                [
+                    1257.0,
+                    1256.0
+                ],
+                [
+                    1239.0,
+                    1256.0
+                ]
+            ],
+            "shape_type": "polygon",
+            "flags": {}
+        }
+    ],
+    "line_color": [
+        0,
+        255,
+        0,
+        128
+    ],
+    "fillColor": [
+        255,
+        0,
+        0,
+        128
+    ],
+    "imagePath": "aug2_EDF 07-EST-01.jpg",
+    "imageData": "",
+    "imageHeight": 1280,
+    "imageWidth": 1600
+}
