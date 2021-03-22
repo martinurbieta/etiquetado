@@ -2,7 +2,7 @@
   "version": "3.16.7",
   "flags": {},
   "shapes": [
-    {
+  	{
       "label": "slab",
       "line_color": null,
       "fill_color": null,

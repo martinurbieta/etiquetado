@@ -428,7 +428,7 @@
       "flags": {}
     },
     {
-      "label": "column",
+      "label": "beam",
       "line_color": null,
       "fill_color": null,
       "points": [
@@ -453,7 +453,7 @@
       "flags": {}
     },
     {
-      "label": "column",
+      "label": "beam",
       "line_color": null,
       "fill_color": null,
       "points": [
@@ -478,7 +478,7 @@
       "flags": {}
     },
     {
-      "label": "column",
+      "label": "beam",
       "line_color": null,
       "fill_color": null,
       "points": [
@@ -503,7 +503,7 @@
       "flags": {}
     },
     {
-      "label": "column",
+      "label": "beam",
       "line_color": null,
       "fill_color": null,
       "points": [
