@@ -10,5 +10,5 @@ for line in lines:
     print(dictionay["elem"])
     #points
     print(dictionary["points"])
-    #specific point [x1, x2, y1, y2]
+    #especific point [x1, x2, y1, y2]
     print(dictionary["points"]["x1"])
