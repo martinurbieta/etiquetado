@@ -11,7 +11,7 @@ pivotItemsList = []
 dependentItemsList = []
 
 
-def getItemsLists(lines):
+def getItemsLists(lines, pivot_element, dependent_element):
     #Convierte cada linea en diccionario y asigna las columnas al listado de pivotes y las vigas al listado de dependientes
     pivot = []
     dependent = []
@@ -21,11 +21,11 @@ def getItemsLists(lines):
 
     for line in lines:
         dictionary = ast.literal_eval(line)
-        if dictionary["elem"] == 'beam':
+        if dictionary["elem"] == dependent_element:
             dependent.append(dictionary)
             dictionary["elem"] = dictionary["elem"] + str(index_b)
             index_b = index_b + 1
-        elif dictionary["elem"] == 'column':
+        elif dictionary["elem"] == pivot_element:
             pivot.append(dictionary)
             dictionary["elem"] = dictionary["elem"] + str(index_c)
             index_c = index_c + 1
@@ -105,13 +105,22 @@ def checkMinimumDistance(pivotItems, dependentItems):
 ########################################################
 
 #Verifico cantidad de parametros
-if len(sys.argv) < 3:
-    print('Falta un argumento --> predictionsFile_path cota')
+if len(sys.argv) < 5:
+    print('Falta un argumento --> predictionsFile_path cota pivot dependent')
     exit(0)
 
 #Asigno los parametros
 path_file = sys.argv[1]
 cota = int(sys.argv[2])
+
+posibles = ['beam', 'column', 'slab']
+
+pivot_element = sys.argv[3]
+dependent_element = sys.argv[4]
+
+if pivot_element not in posibles or dependent_element not in posibles:
+    print('Elemento pivote o dependiente invalido. Opciones: beam, column, slab')
+    exit(0)
 
 #Verifico que el archivo exista
 try:
@@ -124,7 +133,7 @@ except:
 lines = archivo.readlines()
 
 #Obtengo los listados
-dependentItemsList, pivotItemsList = getItemsLists(lines)
+dependentItemsList, pivotItemsList = getItemsLists(lines, pivot_element, dependent_element)
 
 output = checkMinimumDistance(pivotItemsList, dependentItemsList)
 
