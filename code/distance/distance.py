@@ -6,7 +6,7 @@ import json
 import os
 import re
 
-salida = []
+
 pivotItemsList = []
 dependentItemsList = []
 
@@ -61,6 +61,11 @@ def save_output(output):
 
 
 def checkMinimumDistance(pivotItems, dependentItems):
+    index = 0
+
+    filename = "relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
+    txt = open(filename,'w') #abro en modo escritura
+
     for pivotItem in pivotItems:
         cercanos = []
         pivotPoints = pivotItem['points']
@@ -81,25 +86,17 @@ def checkMinimumDistance(pivotItems, dependentItems):
             if points_distance < cota:
                 cercanos.append(dependentItem)
 
-        diccionario = {}
 
-        #Asigno a cada pivote sus dependientes mas cercanos
-        for elemento in cercanos:
-            if(elemento["elem"] != ''):
-                elemPoints = elemento["points"]
-                index_points = 'x1: ' + pivotPoints['x1'] + ', x2: ' + pivotPoints['x2'] + ', y1: ' + pivotPoints['y1'] + ', y2: ' + pivotPoints['y2']
-                elem_points = {'x1': elemPoints["x1"], 'x2': elemPoints["x2"], 'y1': elemPoints['y1'], 'y2': elemPoints['y2']}
-                try:
-                    diccionario[index_points] = diccionario[index_points][:-1] + ', ' + str(elem_points) + ']'
-                except:
-                    diccionario[index_points] = '[' + str(elem_points) + ']'
-        
+        pivotItem["relItems"] = cercanos
 
-        salida.append(diccionario)
+        txt.write((str(pivotItem) + '\n')) #escribo el elemento pivot con sus relacionados
+
+        index = index + 1
+
 
     #Aplico a la salida formato pseudo json
-    salida_json = json.dumps(salida,indent=2)
-    return salida_json
+    txt.close()
+    return
 
 
 ########################################################
@@ -140,6 +137,4 @@ output = checkMinimumDistance(pivotItemsList, dependentItemsList)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json
-
-save_output(output)
 exit(0)
