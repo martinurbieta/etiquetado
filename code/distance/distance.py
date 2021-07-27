@@ -62,10 +62,9 @@ def getItemsLists(lines, pivot_element, dependent_element):
 
 def checkMinimumDistance(path_file, pivotItems, dependentItems):
     index = 0
-    #if os.path.isdir(path_file):
-        
-    #filename = path_file.split('/')[len(path_file.split('/')) - 1]
-    filename = path_file + "_relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
+    filename = path_file.split('/')[len(path_file.split('/')) - 1]
+    print(filename)
+    filename = filename + "_relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
     txt = open(filename,'w') #abro en modo escritura
 
     for pivotItem in pivotItems:
@@ -142,10 +141,9 @@ if pivot_element not in posibles or dependent_element not in posibles:
 if os.path.isdir(path_file):
     for filename in os.listdir(path_file):
         if filename.startswith("pred_"):
-            path = path_file + filename
-            print(path)
-            readAndGet(path, pivot_element, dependent_element)
-        
+            path_file = os.getcwd() + '/' + filename
+            print(path_file)
+            readAndGet(path_file, pivot_element, dependent_element)
     print('Proceso terminado ... \n')
     exit(0)
 
