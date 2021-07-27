@@ -60,10 +60,12 @@ def save_output(output):
      """
 
 
-def checkMinimumDistance(pivotItems, dependentItems):
+def checkMinimumDistance(path_file, pivotItems, dependentItems):
     index = 0
 
-    filename = "relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
+    filename = path_file.split('/')[len(path_file.split('/')) - 1]
+    print(filename)
+    filename = filename + "_relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
     txt = open(filename,'w') #abro en modo escritura
 
     for pivotItem in pivotItems:
@@ -97,7 +99,24 @@ def checkMinimumDistance(pivotItems, dependentItems):
     #Aplico a la salida formato pseudo json
     txt.close()
     return
+    
 
+
+def readAndGet(path_file, pivot_element, dependent_element):
+    #Verifico que el archivo exista
+    try:
+        archivo = open(path_file, 'r')
+    except:
+        print('El archivo no existe')
+        exit(0)
+
+    #Obtengo todas las lineas
+    lines = archivo.readlines()
+
+    #Obtengo los listados
+    dependentItemsList, pivotItemsList = getItemsLists(lines, pivot_element, dependent_element)
+
+    output = checkMinimumDistance(path_file, pivotItemsList, dependentItemsList)
 
 ########################################################
 
@@ -119,21 +138,17 @@ if pivot_element not in posibles or dependent_element not in posibles:
     print('Elemento pivote o dependiente invalido. Opciones: beam, column, slab')
     exit(0)
 
-#Verifico que el archivo exista
-try:
-    archivo = open(path_file, 'r')
-except:
-    print('El archivo no existe')
+
+if os.path.isdir(path_file):
+    for filename in os.listdir(path_file):
+        if filename.startswith("pred_"):
+            path_file = os.getcwd() + '/' + filename
+            print(path_file)
+            readAndGet(path_file, pivot_element, dependent_element)
+    print('Proceso terminado ... \n')
     exit(0)
 
-#Obtengo todas las lineas
-lines = archivo.readlines()
-
-#Obtengo los listados
-dependentItemsList, pivotItemsList = getItemsLists(lines, pivot_element, dependent_element)
-
-output = checkMinimumDistance(pivotItemsList, dependentItemsList)
-
+readAndGet(path_file, pivot_element, dependent_element)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json
