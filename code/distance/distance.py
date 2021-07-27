@@ -32,7 +32,7 @@ def getItemsLists(lines, pivot_element, dependent_element):
     return dependent, pivot
 
 
-def save_output(output):
+""" def save_output(output):
     maximo = -1
     path_maximo = 'relacionados.json'
     for filepath in os.listdir(os.getcwd()):
@@ -51,7 +51,7 @@ def save_output(output):
     else:
         archivo_salida = open('relacionados0.json','w+')
         archivo_salida.write(output)
-        print('Guardado como relacionados0.json')
+        print('Guardado como relacionados0.json') """
 
 """ def save_output(output):
     archivo_salida = open('relacionados.json','w+')
@@ -62,10 +62,10 @@ def save_output(output):
 
 def checkMinimumDistance(path_file, pivotItems, dependentItems):
     index = 0
-
-    filename = path_file.split('/')[len(path_file.split('/')) - 1]
-    print(filename)
-    filename = filename + "_relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
+    #if os.path.isdir(path_file):
+        
+    #filename = path_file.split('/')[len(path_file.split('/')) - 1]
+    filename = path_file + "_relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
     txt = open(filename,'w') #abro en modo escritura
 
     for pivotItem in pivotItems:
@@ -142,9 +142,10 @@ if pivot_element not in posibles or dependent_element not in posibles:
 if os.path.isdir(path_file):
     for filename in os.listdir(path_file):
         if filename.startswith("pred_"):
-            path_file = os.getcwd() + '/' + filename
-            print(path_file)
-            readAndGet(path_file, pivot_element, dependent_element)
+            path = path_file + filename
+            print(path)
+            readAndGet(path, pivot_element, dependent_element)
+        
     print('Proceso terminado ... \n')
     exit(0)
 
