@@ -1,0 +1,24 @@
+Para ejecutarlo sobre un archivo en particular
+
+python distance.py pred_file.txt cota pivote dependiente
+
+Ejemplo:
+
+python distance.py 'pred_EDF 03 - EST-06.txt' 20 column beam
+
+#Se guarda un archivo con el nombre 'pred_EDF 03 - EST-06.txt_relacionados20.txt'
+
+------------------------------------------------------
+------------------------------------------------------
+
+Para ejecutarlo sobre un directorio completo
+
+python distance.py path_directorio cota pivote dependiente
+
+Ejemplo:
+
+python distance.py /home/colo_/Documentos/etiquetado/code/distance/ 20 column beam
+
+#Considera todos los archivos que comiencen con 'pred_' y que no contengan la cadena '_relacionados' en su nombre
+#Genera un txt por cada uno de los archivos del directorio, nombrandolos con el formato antes mencionado
+
