@@ -32,38 +32,10 @@ def getItemsLists(lines, pivot_element, dependent_element):
     return dependent, pivot
 
 
-def save_output(output):
-    maximo = -1
-    path_maximo = 'relacionados.json'
-    for filepath in os.listdir(os.getcwd()):
-        pattern = re.compile("relacionados\d+.json")
-        if pattern.match(filepath):
-            indice = int(filepath.split('.json')[0][-1])
-            if indice > maximo:
-                maximo = indice
-                path_maximo = filepath
-    if maximo > -1:
-        filename = 'relacionados' + str(int(path_maximo.split('.json')[0][-1]) + 1) + '.json'
-        archivo_salida = open(filename,'w+')
-        archivo_salida.write(output)
-        archivo_salida.close()
-        print('Guardado como relacionados{}.json'.format(str(maximo + 1)))
-    else:
-        archivo_salida = open('relacionados0.json','w+')
-        archivo_salida.write(output)
-        print('Guardado como relacionados0.json')
-
-""" def save_output(output):
-    archivo_salida = open('relacionados.json','w+')
-    archivo_salida.write(output)
-    print('Guardado como relacionados.json')
-     """
-
-
-def checkMinimumDistance(pivotItems, dependentItems):
-    index = 0
-
-    filename = "relacionados" + str(index) + '.txt' #genero un archivo de texto por cada imagen de test
+def checkMinimumDistance(path_file, pivotItems, dependentItems):
+    filename = path_file.split('/')[len(path_file.split('/')) - 1]
+    print(filename)
+    filename = filename + "_relacionados" + str(cota) + '.txt' #genero un archivo de texto por cada imagen de test
     txt = open(filename,'w') #abro en modo escritura
 
     for pivotItem in pivotItems:
@@ -91,13 +63,27 @@ def checkMinimumDistance(pivotItems, dependentItems):
 
         txt.write((str(pivotItem) + '\n')) #escribo el elemento pivot con sus relacionados
 
-        index = index + 1
-
 
     #Aplico a la salida formato pseudo json
     txt.close()
     return
+    
 
+def readAndGet(path_file, pivot_element, dependent_element):
+    #Verifico que el archivo exista
+    try:
+        archivo = open(path_file, 'r')
+    except:
+        print('El archivo no existe')
+        exit(0)
+
+    #Obtengo todas las lineas
+    lines = archivo.readlines()
+
+    #Obtengo los listados
+    dependentItemsList, pivotItemsList = getItemsLists(lines, pivot_element, dependent_element)
+
+    output = checkMinimumDistance(path_file, pivotItemsList, dependentItemsList)
 
 ########################################################
 
@@ -119,21 +105,17 @@ if pivot_element not in posibles or dependent_element not in posibles:
     print('Elemento pivote o dependiente invalido. Opciones: beam, column, slab')
     exit(0)
 
-#Verifico que el archivo exista
-try:
-    archivo = open(path_file, 'r')
-except:
-    print('El archivo no existe')
+
+if os.path.isdir(path_file):
+    for filename in os.listdir(path_file):
+        if filename.startswith("pred_") and '_relacionados' not in filename:
+            path_file = os.getcwd() + '/' + filename
+            print(path_file)
+            readAndGet(path_file, pivot_element, dependent_element)
+    print('Proceso terminado ... \n')
     exit(0)
 
-#Obtengo todas las lineas
-lines = archivo.readlines()
-
-#Obtengo los listados
-dependentItemsList, pivotItemsList = getItemsLists(lines, pivot_element, dependent_element)
-
-output = checkMinimumDistance(pivotItemsList, dependentItemsList)
-
+readAndGet(path_file, pivot_element, dependent_element)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json
