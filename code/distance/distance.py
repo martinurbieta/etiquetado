@@ -10,6 +10,19 @@ import re
 pivotItemsList = []
 dependentItemsList = []
 
+def getLabelsList(labels_lines):
+    column = []
+    beam = []
+
+    for line in labels_lines:
+        dictionary = ast.literal_eval(line)
+        if dictionary["elem"].lower().startswith("c"):
+            column.append(dictionary)
+        elif dictionary["elem"].lower().startswith("v"):
+            beam.append(dictionary)
+    return column, beam
+
+
 
 def getItemsLists(lines, pivot_element, dependent_element):
     #Convierte cada linea en diccionario y asigna las columnas al listado de pivotes y las vigas al listado de dependientes
@@ -31,9 +44,27 @@ def getItemsLists(lines, pivot_element, dependent_element):
             index_c = index_c + 1
     return dependent, pivot
 
+def assignLabels(labels, items):
+    for item in items:
+        item_points = item['points']
+        item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])), (int(item_points['x1']), int(item_points['y2'])),
+                        (int(item_points['x2']), int(item_points['y1'])), (int(item_points['x2']), int(item_points['y2']))])
 
-def checkMinimumDistance(path_file, pivotItems, dependentItems):
-    filename = path_file.split('/')[len(path_file.split('/')) - 1]
+        for label in labels:
+            label_points = label['points']
+            label_poly = Polygon([(int(label_points['x1']), int(label_points['y1'])), (int(label_points['x1']), int(label_points['y2'])),
+                        (int(label_points['x2']), int(label_points['y1'])), (int(label_points['x2']), int(label_points['y2']))])
+            p1, p2 = nearest_points(item_poly, label_poly)
+            points_distance = p1.distance(p2)
+            if points_distance < cota:
+                item['label'] = label['elem'].upper()
+    return 
+
+
+
+
+def checkMinimumDistance(predictions_path, pivotItems, dependentItems):
+    filename = predictions_path.split('/')[len(predictions_path.split('/')) - 1]
     print(filename)
     filename = filename + "_relacionados" + str(cota) + '.txt' #genero un archivo de texto por cada imagen de test
     txt = open(filename,'w') #abro en modo escritura
@@ -69,53 +100,69 @@ def checkMinimumDistance(path_file, pivotItems, dependentItems):
     return
     
 
-def readAndGet(path_file, pivot_element, dependent_element):
+def readAndGet(predictions_path, labels_path, pivot_element, dependent_element):
     #Verifico que el archivo exista
     try:
-        archivo = open(path_file, 'r')
+        predictions_file = open(predictions_path, 'r')
     except:
-        print('El archivo no existe')
+        print('El archivo de predicciones no existe')
+        exit(0)
+
+    #Verifico que el archivo exista
+    try:
+        labels_file = open(labels_path, 'r')
+    except:
+        print('El archivo de labels no existe')
         exit(0)
 
     #Obtengo todas las lineas
-    lines = archivo.readlines()
-
+    pred_lines = predictions_file.readlines()
+    labels_lines = labels_file.readlines()
     #Obtengo los listados
-    dependentItemsList, pivotItemsList = getItemsLists(lines, pivot_element, dependent_element)
+    dependentItemsList, pivotItemsList = getItemsLists(pred_lines, pivot_element, dependent_element)
+    column_labels, beam_labels = getLabelsList(labels_lines)
 
-    output = checkMinimumDistance(path_file, pivotItemsList, dependentItemsList)
+    if pivot_element == "column":
+        assignLabels(pivotItemsList, column_labels)
+        assignLabels(dependentItemsList, beam_labels)
+    elif pivot_element == "beam":
+        assignLabels(pivotItemsList, beam_labels)
+        assignLabels(dependentItemsList, column_labels)
+
+    output = checkMinimumDistance(predictions_path, pivotItemsList, dependentItemsList)
 
 ########################################################
 
 #Verifico cantidad de parametros
 if len(sys.argv) < 5:
-    print('Falta un argumento --> predictionsFile_path cota pivot dependent')
+    print('Falta un argumento --> predictionsFile_path labelsPath cota pivot dependent')
     exit(0)
 
 #Asigno los parametros
-path_file = sys.argv[1]
-cota = int(sys.argv[2])
+predictions_path = sys.argv[1]
+labels_path = sys.argv[2]
+cota = int(sys.argv[3])
+
+pivot_element = sys.argv[4]
+dependent_element = sys.argv[5]
 
 posibles = ['beam', 'column', 'slab']
-
-pivot_element = sys.argv[3]
-dependent_element = sys.argv[4]
 
 if pivot_element not in posibles or dependent_element not in posibles:
     print('Elemento pivote o dependiente invalido. Opciones: beam, column, slab')
     exit(0)
 
 
-if os.path.isdir(path_file):
-    for filename in os.listdir(path_file):
+if os.path.isdir(predictions_path):
+    for filename in os.listdir(predictions_path):
         if filename.startswith("pred_") and '_relacionados' not in filename:
-            path_file = os.getcwd() + '/' + filename
-            print(path_file)
-            readAndGet(path_file, pivot_element, dependent_element)
+            predictions_path = os.getcwd() + '/' + filename
+            print(predictions_path)
+            readAndGet(predictions_path, pivot_element, dependent_element)
     print('Proceso terminado ... \n')
     exit(0)
 
-readAndGet(path_file, pivot_element, dependent_element)
+readAndGet(predictions_path, pivot_element, dependent_element)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json
