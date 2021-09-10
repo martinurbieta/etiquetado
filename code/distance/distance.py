@@ -20,6 +20,7 @@ def getLabelsList(labels_lines):
             column.append(dictionary)
         elif dictionary["elem"].lower().startswith("v"):
             beam.append(dictionary)
+
     return column, beam
 
 
@@ -36,16 +37,17 @@ def getItemsLists(lines, pivot_element, dependent_element):
         dictionary = ast.literal_eval(line)
         if dictionary["elem"] == dependent_element:
             dependent.append(dictionary)
-            dictionary["elem"] = dictionary["elem"] + str(index_b)
+            #dictionary["elem"] = dictionary["elem"] + str(index_b)
             index_b = index_b + 1
         elif dictionary["elem"] == pivot_element:
             pivot.append(dictionary)
-            dictionary["elem"] = dictionary["elem"] + str(index_c)
+            #dictionary["elem"] = dictionary["elem"] + str(index_c)
             index_c = index_c + 1
     return dependent, pivot
 
-def assignLabels(labels, items):
+def assignLabels(items, labels):
     for item in items:
+        found = False
         item_points = item['points']
         item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])), (int(item_points['x1']), int(item_points['y2'])),
                         (int(item_points['x2']), int(item_points['y1'])), (int(item_points['x2']), int(item_points['y2']))])
@@ -56,8 +58,13 @@ def assignLabels(labels, items):
                         (int(label_points['x2']), int(label_points['y1'])), (int(label_points['x2']), int(label_points['y2']))])
             p1, p2 = nearest_points(item_poly, label_poly)
             points_distance = p1.distance(p2)
-            if points_distance < cota:
-                item['label'] = label['elem'].upper()
+            print("Label{} , distnace{}, element {}".format(label['elem'], points_distance, item['tag']))
+            if points_distance < 200:
+                item['tag'] = label['elem'].upper()
+                labels.remove(label)
+                found = True
+            if found:
+                break
     return 
 
 
@@ -162,7 +169,7 @@ if os.path.isdir(predictions_path):
     print('Proceso terminado ... \n')
     exit(0)
 
-readAndGet(predictions_path, pivot_element, dependent_element)
+readAndGet(predictions_path, labels_path, pivot_element, dependent_element)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json
