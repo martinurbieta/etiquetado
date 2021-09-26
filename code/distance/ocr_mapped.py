@@ -1,6 +1,7 @@
 import ast
 from shapely.ops import nearest_points
-from shapely.ops import cascaded_union
+from shapely.geometry import box
+from shapely.ops import unary_union
 from shapely.geometry import Polygon
 import geopandas as gpd
 
@@ -18,22 +19,26 @@ def checkMinimumDistance(pivotItems, dependentItems):
         pivotPoints = pivotItem['points']
         pivot = Polygon([(int(pivotPoints['x1']), int(pivotPoints['y1'])), (int(pivotPoints['x1']), int(pivotPoints['y2'])),
                         (int(pivotPoints['x2']), int(pivotPoints['y1'])), (int(pivotPoints['x2']), int(pivotPoints['y2']))])
-
+        
+        pivot_box = box(int(pivotPoints['x1']), int(pivotPoints['y1']), int(pivotPoints['x2']), int(pivotPoints['y2']))
+        
         for dependentItem in dependentItems:
             dependentPoints = dependentItem['points']
             dependent = Polygon([(int(dependentPoints['x1']), int(dependentPoints['y1'])), (int(dependentPoints['x1']), int(dependentPoints['y2'])),
                                  (int(dependentPoints['x2']), int(dependentPoints['y1'])), (int(dependentPoints['x2']), int(dependentPoints['y2']))])
             p1, p2 = nearest_points(pivot, dependent)
 
+            dependent_box = box(int(dependentPoints['x1']), int(dependentPoints['y1']), int(dependentPoints['x2']), int(dependentPoints['y2']))
+            
             points_distance = p1.distance(p2)
             #print("Beam: " + dependentItem['elem'] +
              #     " - Distancia: " + str(p1.distance(p2)))
 
             #Si la distancia es menor a una cota determinada, guardo el elemento dependiente como cercano
             if points_distance < 3:
-                polis = [pivot,dependent]
-                u = cascaded_union(polis)
-                print(u)
+                boxes = [pivot_box, dependent_box]
+                union = unary_union(boxes)
+                print(union)
                 pivotItem["elem"] = pivotItem["elem"] + dependentItem["elem"]
                 cercanos.append(dependentItem)
 
