@@ -50,15 +50,13 @@ def assignLabels(items, labels):
         found = False
         item_points = item['points']
         item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])), (int(item_points['x1']), int(item_points['y2'])),
-                        (int(item_points['x2']), int(item_points['y1'])), (int(item_points['x2']), int(item_points['y2']))])
-
+                         (int(item_points['x2']), int(item_points['y1'])), (int(item_points['x2']), int(item_points['y2']))])
         for label in labels:
             label_points = label['points']
-            label_poly = Polygon([(int(label_points['x1']), int(label_points['y1'])), (int(label_points['x1']), int(label_points['y2'])),
-                        (int(label_points['x2']), int(label_points['y1'])), (int(label_points['x2']), int(label_points['y2']))])
+            label_poly = Polygon(label_points)
             p1, p2 = nearest_points(item_poly, label_poly)
             points_distance = p1.distance(p2)
-            print("Label{} , distnace{}, element {}".format(label['elem'], points_distance, item['tag']))
+            print("Label{} , distance{}, element {}".format(label['elem'], points_distance, item['tag']))
             if points_distance < 200:
                 item['tag'] = label['elem'].upper()
                 labels.remove(label)
