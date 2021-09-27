@@ -1,3 +1,10 @@
+"""
+    Input: predicciones y etiquetas
+    
+    Output: mapeo de realaciones entre
+    los datos ingresados
+"""
+
 import sys
 import ast
 import os
@@ -5,6 +12,10 @@ from shapely.ops import nearest_points
 from shapely.geometry import Polygon
 
 def get_labels_list(labels_lines):
+    """
+        Obtiene un listado las etiquetas
+        agrupadas por columnas y vigas
+    """
     column = []
     beam = []
     for line in labels_lines:
@@ -17,10 +28,12 @@ def get_labels_list(labels_lines):
 
 
 
-def get_items_lists(lines, pivot_element):
-    #Convierte cada linea en diccionario y 
-    # asigna las columnas al listado de pivotes 
-    # y las vigas al listado de dependientes
+def get_items_lists(lines):
+    """
+        Convierte cada linea en diccionario y 
+        asigna las columnas al listado de pivotes 
+        y las vigas al listado de dependientes
+    """
     pivot = []
     dependent = []
     index_c = 0
@@ -31,13 +44,18 @@ def get_items_lists(lines, pivot_element):
             dependent.append(dictionary)
             #dictionary["elem"] = dictionary["elem"] + str(index_b)
             index_b = index_b + 1
-        elif dictionary["elem"] == pivot_element:
+        elif dictionary["elem"] == main_pivot_element:
             pivot.append(dictionary)
             #dictionary["elem"] = dictionary["elem"] + str(index_c)
             index_c = index_c + 1
     return dependent, pivot
 
+
 def assign_labels(items, labels):
+    """
+        Se asignan las etiquetas
+        a cada elemento
+    """
     for item in items:
         found = False
         item_points = item['points']
@@ -60,6 +78,10 @@ def assign_labels(items, labels):
 
 
 def check_minimum_distance(predictions_path, pivot_items, dependent_items):
+    """
+        Obtiene los relacionados
+        segun la distancia de los elementos
+    """
     predictions_filename = predictions_path.split('/')[len(predictions_path.split('/')) - 1]
     #genero un archivo de texto por cada imagen de test
     predictions_filename = predictions_filename + "_relacionados" + str(cota) + '.txt'
@@ -96,26 +118,30 @@ def check_minimum_distance(predictions_path, pivot_items, dependent_items):
         txt.close()
     
 
-def read_and_get(predictions_path, labels_path, pivot_element):
+def read_and_get(predictions_path):
+    """
+        Abre los archivos, los lee
+        y llama a los metodos 
+        para realizar los calculos
+    """
     pivot_items_list = []
     dependent_items_list = []
     #Verifico que el archivo exista
     try:
         with open(predictions_path, 'r') as predictions_file:
             try:
-                with open(labels_path, 'r') as labels_file:
+                with open(main_labels_path, 'r') as labels_file:
                     #Obtengo todas las lineas
                     pred_lines = predictions_file.readlines()
                     labels_lines = labels_file.readlines()
                     #Obtengo los listados
-                    dependent_items_list, pivot_items_list = get_items_lists(
-                        pred_lines, pivot_element)
+                    dependent_items_list, pivot_items_list = get_items_lists(pred_lines)
                     column_labels, beam_labels = get_labels_list(labels_lines)
 
-                    if pivot_element == "column":
+                    if main_pivot_element == "column":
                         assign_labels(pivot_items_list, column_labels)
                         assign_labels(dependent_items_list, beam_labels)
-                    elif pivot_element == "beam":
+                    elif main_pivot_element == "beam":
                         assign_labels(pivot_items_list, beam_labels)
                         assign_labels(dependent_items_list, column_labels)
 
@@ -158,11 +184,11 @@ if os.path.isdir(main_predictions_path):
         if filename.startswith("pred_") and '_relacionados' not in filename:
             main_predictions_path = os.getcwd() + '/' + filename
             print(main_predictions_path)
-            read_and_get(main_predictions_path, main_pivot_element)
+            read_and_get(main_predictions_path)
     print('Proceso terminado ... \n')
     sys.exit()
 
-read_and_get(main_predictions_path, main_labels_path, main_pivot_element)
+read_and_get(main_predictions_path)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json

@@ -1,3 +1,10 @@
+"""
+    Input: listado de elementos detectados
+    por google vision con sus coordenadas
+    
+    Output: listado corregido
+"""
+
 import ast
 import sys
 from shapely.ops import nearest_points
@@ -6,6 +13,10 @@ from shapely.geometry import Polygon
 
 
 def check_minimum_distance(pivot_items, dependent_items):
+    """
+        Obtiene los relacionados
+        segun las distancias entre elementos
+    """
     para_anidar = []
     for pivot_item in pivot_items:
         cercanos = []
@@ -73,4 +84,3 @@ try:
 except FileNotFoundError:
     print('El archivo no existe')
     sys.exit()
-    
