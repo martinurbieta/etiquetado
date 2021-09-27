@@ -1,54 +1,57 @@
 import ast
 from shapely.ops import nearest_points
-from shapely.geometry import box
-from shapely.ops import unary_union
+from shapely.ops import cascaded_union
 from shapely.geometry import Polygon
 import geopandas as gpd
 
 def beautyPrint(array):
+    count = 0
     for i in array:
         print(i)
+        count += 1
+    print(f"Cantidad de elementos: {count}")
 
 def checkMinimumDistance(pivotItems, dependentItems):
-
-    filename = '/home/colo_/Escritorio/EDF07/unido.txt' #genero un archivo de texto por cada imagen de test
-    txt = open(filename,'w') #abro en modo escritura
     anidados = []
     for pivotItem in pivotItems:
         cercanos = []
+        min = 9999
         pivotPoints = pivotItem['points']
         pivot = Polygon([(int(pivotPoints['x1']), int(pivotPoints['y1'])), (int(pivotPoints['x1']), int(pivotPoints['y2'])),
                         (int(pivotPoints['x2']), int(pivotPoints['y1'])), (int(pivotPoints['x2']), int(pivotPoints['y2']))])
-        
-        pivot_box = box(int(pivotPoints['x1']), int(pivotPoints['y1']), int(pivotPoints['x2']), int(pivotPoints['y2']))
         
         for dependentItem in dependentItems:
             dependentPoints = dependentItem['points']
             dependent = Polygon([(int(dependentPoints['x1']), int(dependentPoints['y1'])), (int(dependentPoints['x1']), int(dependentPoints['y2'])),
                                  (int(dependentPoints['x2']), int(dependentPoints['y1'])), (int(dependentPoints['x2']), int(dependentPoints['y2']))])
             p1, p2 = nearest_points(pivot, dependent)
-
-            dependent_box = box(int(dependentPoints['x1']), int(dependentPoints['y1']), int(dependentPoints['x2']), int(dependentPoints['y2']))
             
             points_distance = p1.distance(p2)
-            #print("Beam: " + dependentItem['elem'] +
-             #     " - Distancia: " + str(p1.distance(p2)))
-
+            
             #Si la distancia es menor a una cota determinada, guardo el elemento dependiente como cercano
-            if points_distance < 3:
-                boxes = [pivot_box, dependent_box]
-                union = unary_union(boxes)
-                print(union)
-                pivotItem["elem"] = pivotItem["elem"] + dependentItem["elem"]
-                cercanos.append(dependentItem)
-
-        #pivotItem["relItems"] = cercanos
-        txt.write((str(pivotItem) + '\n')) #escribo el elemento pivot con sus relacionados
+            if points_distance < 20:
+                if points_distance < min:
+                    min = points_distance
+                    cercanos.append(dependentItem)
+                    if 'x' not in pivotItem["elem"]:
+                        pivotItem["elem"] = pivotItem["elem"] + dependentItem["elem"]
+                    else:
+                        pivotItem["elem"] = pivotItem["elem"].split(':')[0] + ":"+dependentItem["elem"]
+                    
+                    polygons = [pivot, dependent]
+                    merged_box = cascaded_union(polygons).bounds
+                    xmin, ymin, xmax, ymax = merged_box
+                    pivotItem["points"]["x1"] = int(xmin)
+                    pivotItem["points"]["x2"] = int(xmax)
+                    pivotItem["points"]["y1"] = int(ymin)
+                    pivotItem["points"]["y2"] = int(ymax)
+        
         anidados.append(pivotItem)
+
     return anidados
 
 
-ocr_path = '/home/colo_/Escritorio/EDF07/text_EDF 07-EST-01.txt'
+ocr_path = 'ocr/text_EDF 07-EST-01.txt'
 
 try:
     ocr_file = open(ocr_path, 'r')
@@ -72,11 +75,16 @@ for line in ocr_file:
 
 
 #beautyPrint(others)
+
 anidados = ((checkMinimumDistance(beams, dependents)))
 
 for i in anidados:
     others.append(i)
 
-#beautyPrint(others)
+filename = 'ocr_mapped.txt' #genero un archivo de texto por cada imagen de test
+txt = open(filename,'w')
+
+txt.write(''.join(str(i) + '\n' for i in others))
+
 
 
