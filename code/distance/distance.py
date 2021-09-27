@@ -11,6 +11,8 @@ import os
 from shapely.ops import nearest_points
 from shapely.geometry import Polygon
 
+OFFSET = 160
+
 def get_labels_list(labels_lines):
     """
         Obtiene un listado las etiquetas
@@ -59,17 +61,17 @@ def assign_labels(items, labels):
     for item in items:
         found = False
         item_points = item['points']
-        item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])),
-                        (int(item_points['x1']), int(item_points['y2'])),
-                        (int(item_points['x2']), int(item_points['y1'])),
-                        (int(item_points['x2']), int(item_points['y2']))])
+        item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])-OFFSET),
+                        (int(item_points['x1']), int(item_points['y2'])-OFFSET),
+                        (int(item_points['x2']), int(item_points['y1'])-OFFSET),
+                        (int(item_points['x2']), int(item_points['y2'])-OFFSET)])
         for label in labels:
             label_points = label['points']
             label_poly = Polygon(label_points)
             p_1, p_2 = nearest_points(item_poly, label_poly)
             points_distance = p_1.distance(p_2)
             print(f"Label: {label['elem']} , distance: {points_distance}, element {item['tag']}")
-            if points_distance < 200:
+            if points_distance < cota:
                 item['tag'] = label['elem'].upper()
                 labels.remove(label)
                 found = True
@@ -90,17 +92,18 @@ def check_minimum_distance(predictions_path, pivot_items, dependent_items):
         for pivot_item in pivot_items:
             cercanos = []
             pivot_points = pivot_item['points']
-            pivot = Polygon([(int(pivot_points['x1']), int(pivot_points['y1'])),
-                            (int(pivot_points['x1']), int(pivot_points['y2'])),
-                            (int(pivot_points['x2']), int(pivot_points['y1'])),
-                            (int(pivot_points['x2']), int(pivot_points['y2']))])
+            pivot = Polygon([(int(pivot_points['x1']), int(pivot_points['y1'])-OFFSET),
+                            (int(pivot_points['x1']), int(pivot_points['y2'])-OFFSET),
+                            (int(pivot_points['x2']), int(pivot_points['y1'])-OFFSET),
+                            (int(pivot_points['x2']), int(pivot_points['y2'])-OFFSET)])
 
             for dependent_item in dependent_items:
                 dependent_points = dependent_item['points']
-                dependent = Polygon([(int(dependent_points['x1']), int(dependent_points['y1'])),
-                                    (int(dependent_points['x1']), int(dependent_points['y2'])),
-                                    (int(dependent_points['x2']), int(dependent_points['y1'])),
-                                    (int(dependent_points['x2']), int(dependent_points['y2']))])
+                dependent = Polygon(
+                    [(int(dependent_points['x1']),int(dependent_points['y1'])-OFFSET),
+                    (int(dependent_points['x1']),int(dependent_points['y2'])-OFFSET),
+                    (int(dependent_points['x2']),int(dependent_points['y1'])-OFFSET),
+                    (int(dependent_points['x2']),int(dependent_points['y2'])-OFFSET)])
                 p_1, p_2 = nearest_points(pivot, dependent)
 
                 points_distance = p_1.distance(p_2)
@@ -191,5 +194,4 @@ if os.path.isdir(main_predictions_path):
 read_and_get(main_predictions_path)
 print('Proceso terminado ... \n')
 
-#Guardo el output en relacionados.json
 sys.exit()
