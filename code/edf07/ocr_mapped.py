@@ -50,7 +50,7 @@ def checkMinimumDistance(pivotItems, dependentItems):
     return anidados
 
 
-ocr_path = 'ocr/text_EDF 07-EST-05.txt'
+ocr_path = 'ocr/text_EDF 07-EST-04.txt'
 
 try:
     ocr_file = open(ocr_path, 'r')
@@ -80,7 +80,7 @@ anidados = ((checkMinimumDistance(beams, dependents)))
 for i in anidados:
     others.append(i)
 
-filename = 'ocr_mapped.txt' #genero un archivo de texto por cada imagen de test
+filename = 'mapped_EDF 07-EST-04.txt' #genero un archivo de texto por cada imagen de test
 txt = open(filename,'w')
 
 txt.write(''.join(str(i) + '\n' for i in others))
