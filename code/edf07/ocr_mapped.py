@@ -17,13 +17,11 @@ def checkMinimumDistance(pivotItems, dependentItems):
         cercanos = []
         min = 9999
         pivotPoints = pivotItem['points']
-        pivot = Polygon([(int(pivotPoints['x1']), int(pivotPoints['y1'])), (int(pivotPoints['x1']), int(pivotPoints['y2'])),
-                        (int(pivotPoints['x2']), int(pivotPoints['y1'])), (int(pivotPoints['x2']), int(pivotPoints['y2']))])
+        pivot = Polygon([pivotPoints[0], pivotPoints[1], pivotPoints[2], pivotPoints[3]])
         
         for dependentItem in dependentItems:
             dependentPoints = dependentItem['points']
-            dependent = Polygon([(int(dependentPoints['x1']), int(dependentPoints['y1'])), (int(dependentPoints['x1']), int(dependentPoints['y2'])),
-                                 (int(dependentPoints['x2']), int(dependentPoints['y1'])), (int(dependentPoints['x2']), int(dependentPoints['y2']))])
+            dependent = Polygon([dependentPoints[0], dependentPoints[1], dependentPoints[2], dependentPoints[3]])
             p1, p2 = nearest_points(pivot, dependent)
             
             points_distance = p1.distance(p2)
@@ -41,17 +39,18 @@ def checkMinimumDistance(pivotItems, dependentItems):
                     polygons = [pivot, dependent]
                     merged_box = cascaded_union(polygons).bounds
                     xmin, ymin, xmax, ymax = merged_box
-                    pivotItem["points"]["x1"] = int(xmin)
-                    pivotItem["points"]["x2"] = int(xmax)
-                    pivotItem["points"]["y1"] = int(ymin)
-                    pivotItem["points"]["y2"] = int(ymax)
+                    
+                    pivotItem["points"][0] = (int(xmin), int(ymin)) 
+                    pivotItem["points"][1] = (int(xmin), int(ymax))
+                    pivotItem["points"][2] = (int(xmax), int(ymin)) 
+                    pivotItem["points"][3] = (int(xmax), int(ymax))
         
         anidados.append(pivotItem)
 
     return anidados
 
 
-ocr_path = 'ocr/text_EDF 07-EST-01.txt'
+ocr_path = 'ocr/text_EDF 07-EST-05.txt'
 
 try:
     ocr_file = open(ocr_path, 'r')
