@@ -65,11 +65,12 @@ try:
 
         for a in anidados:
             others.append(a)
-
-        # genero un archivo de texto por cada imagen de test # pylint: disable=locally-disabled, invalid-name
+        # pylint: disable=locally-disabled, invalid-name
+        # genero un archivo de texto por cada imagen de test
         filename = 'mapped_EDF 07-EST-04.txt'
         with open(filename, 'w') as txt:
             txt.write(''.join(str(i) + '\n' for i in others))
 except FileNotFoundError:
     print('El archivo no existe')
     sys.exit()
+    

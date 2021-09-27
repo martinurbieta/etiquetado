@@ -1,41 +1,33 @@
-from shapely.ops import nearest_points
-from shapely.geometry import Polygon
 import sys
 import ast
-import json
 import os
-import re
+from shapely.ops import nearest_points
+from shapely.geometry import Polygon
 
-
-pivotItemsList = []
-dependentItemsList = []
-
-def getLabelsList(labels_lines):
+def get_labels_list(labels_lines):
     column = []
     beam = []
-
     for line in labels_lines:
         dictionary = ast.literal_eval(line)
         if dictionary["elem"].lower().startswith("c"):
             column.append(dictionary)
         elif dictionary["elem"].lower().startswith("v"):
             beam.append(dictionary)
-
     return column, beam
 
 
 
-def getItemsLists(lines, pivot_element, dependent_element):
-    #Convierte cada linea en diccionario y asigna las columnas al listado de pivotes y las vigas al listado de dependientes
+def get_items_lists(lines, pivot_element):
+    #Convierte cada linea en diccionario y 
+    # asigna las columnas al listado de pivotes 
+    # y las vigas al listado de dependientes
     pivot = []
     dependent = []
-
     index_c = 0
     index_b = 0
-
     for line in lines:
         dictionary = ast.literal_eval(line)
-        if dictionary["elem"] == dependent_element:
+        if dictionary["elem"] == main_dependent_element:
             dependent.append(dictionary)
             #dictionary["elem"] = dictionary["elem"] + str(index_b)
             index_b = index_b + 1
@@ -45,130 +37,133 @@ def getItemsLists(lines, pivot_element, dependent_element):
             index_c = index_c + 1
     return dependent, pivot
 
-def assignLabels(items, labels):
+def assign_labels(items, labels):
     for item in items:
         found = False
         item_points = item['points']
-        item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])), (int(item_points['x1']), int(item_points['y2'])),
-                         (int(item_points['x2']), int(item_points['y1'])), (int(item_points['x2']), int(item_points['y2']))])
+        item_poly = Polygon([(int(item_points['x1']), int(item_points['y1'])),
+                        (int(item_points['x1']), int(item_points['y2'])),
+                        (int(item_points['x2']), int(item_points['y1'])),
+                        (int(item_points['x2']), int(item_points['y2']))])
         for label in labels:
             label_points = label['points']
             label_poly = Polygon(label_points)
-            p1, p2 = nearest_points(item_poly, label_poly)
-            points_distance = p1.distance(p2)
-            print("Label{} , distance{}, element {}".format(label['elem'], points_distance, item['tag']))
+            p_1, p_2 = nearest_points(item_poly, label_poly)
+            points_distance = p_1.distance(p_2)
+            print(f"Label: {label['elem']} , distance: {points_distance}, element {item['tag']}")
             if points_distance < 200:
                 item['tag'] = label['elem'].upper()
                 labels.remove(label)
                 found = True
             if found:
                 break
-    return 
 
 
+def check_minimum_distance(predictions_path, pivot_items, dependent_items):
+    predictions_filename = predictions_path.split('/')[len(predictions_path.split('/')) - 1]
+    #genero un archivo de texto por cada imagen de test
+    predictions_filename = predictions_filename + "_relacionados" + str(cota) + '.txt'
+    with open(predictions_filename,'w') as txt: #abro en modo escritura
+
+        for pivot_item in pivot_items:
+            cercanos = []
+            pivot_points = pivot_item['points']
+            pivot = Polygon([(int(pivot_points['x1']), int(pivot_points['y1'])),
+                            (int(pivot_points['x1']), int(pivot_points['y2'])),
+                            (int(pivot_points['x2']), int(pivot_points['y1'])),
+                            (int(pivot_points['x2']), int(pivot_points['y2']))])
+
+            for dependent_item in dependent_items:
+                dependent_points = dependent_item['points']
+                dependent = Polygon([(int(dependent_points['x1']), int(dependent_points['y1'])),
+                                    (int(dependent_points['x1']), int(dependent_points['y2'])),
+                                    (int(dependent_points['x2']), int(dependent_points['y1'])),
+                                    (int(dependent_points['x2']), int(dependent_points['y2']))])
+                p_1, p_2 = nearest_points(pivot, dependent)
+
+                points_distance = p_1.distance(p_2)
+                #Si la distancia es menor a una cota determinada, 
+                #guardo el elemento dependiente como cercano
+                if points_distance < cota:
+                    cercanos.append(dependent_item)
 
 
-def checkMinimumDistance(predictions_path, pivotItems, dependentItems):
-    filename = predictions_path.split('/')[len(predictions_path.split('/')) - 1]
-    print(filename)
-    filename = filename + "_relacionados" + str(cota) + '.txt' #genero un archivo de texto por cada imagen de test
-    txt = open(filename,'w') #abro en modo escritura
+            pivot_item["relItems"] = cercanos
+            #escribo el elemento pivot con sus relacionados
+            txt.write((str(pivot_item) + '\n'))
 
-    for pivotItem in pivotItems:
-        cercanos = []
-        pivotPoints = pivotItem['points']
-        pivot = Polygon([(int(pivotPoints['x1']), int(pivotPoints['y1'])), (int(pivotPoints['x1']), int(pivotPoints['y2'])),
-                        (int(pivotPoints['x2']), int(pivotPoints['y1'])), (int(pivotPoints['x2']), int(pivotPoints['y2']))])
-
-        for dependentItem in dependentItems:
-            dependentPoints = dependentItem['points']
-            dependent = Polygon([(int(dependentPoints['x1']), int(dependentPoints['y1'])), (int(dependentPoints['x1']), int(dependentPoints['y2'])),
-                                 (int(dependentPoints['x2']), int(dependentPoints['y1'])), (int(dependentPoints['x2']), int(dependentPoints['y2']))])
-            p1, p2 = nearest_points(pivot, dependent)
-
-            points_distance = p1.distance(p2)
-            #print("Beam: " + dependentItem['elem'] +
-             #     " - Distancia: " + str(p1.distance(p2)))
-
-            #Si la distancia es menor a una cota determinada, guardo el elemento dependiente como cercano
-            if points_distance < cota:
-                cercanos.append(dependentItem)
-
-
-        pivotItem["relItems"] = cercanos
-
-        txt.write((str(pivotItem) + '\n')) #escribo el elemento pivot con sus relacionados
-
-
-    #Aplico a la salida formato pseudo json
-    txt.close()
-    return
+        #Aplico a la salida formato pseudo json
+        txt.close()
     
 
-def readAndGet(predictions_path, labels_path, pivot_element, dependent_element):
+def read_and_get(predictions_path, labels_path, pivot_element):
+    pivot_items_list = []
+    dependent_items_list = []
     #Verifico que el archivo exista
     try:
-        predictions_file = open(predictions_path, 'r')
-    except:
+        with open(predictions_path, 'r') as predictions_file:
+            try:
+                with open(labels_path, 'r') as labels_file:
+                    #Obtengo todas las lineas
+                    pred_lines = predictions_file.readlines()
+                    labels_lines = labels_file.readlines()
+                    #Obtengo los listados
+                    dependent_items_list, pivot_items_list = get_items_lists(
+                        pred_lines, pivot_element)
+                    column_labels, beam_labels = get_labels_list(labels_lines)
+
+                    if pivot_element == "column":
+                        assign_labels(pivot_items_list, column_labels)
+                        assign_labels(dependent_items_list, beam_labels)
+                    elif pivot_element == "beam":
+                        assign_labels(pivot_items_list, beam_labels)
+                        assign_labels(dependent_items_list, column_labels)
+
+                    check_minimum_distance(predictions_path, pivot_items_list, dependent_items_list)
+            except FileNotFoundError:
+                print('El archivo de labels no existe')
+                sys.exit()
+    except FileNotFoundError:
         print('El archivo de predicciones no existe')
-        exit(0)
+        sys.exit()
 
     #Verifico que el archivo exista
-    try:
-        labels_file = open(labels_path, 'r')
-    except:
-        print('El archivo de labels no existe')
-        exit(0)
 
-    #Obtengo todas las lineas
-    pred_lines = predictions_file.readlines()
-    labels_lines = labels_file.readlines()
-    #Obtengo los listados
-    dependentItemsList, pivotItemsList = getItemsLists(pred_lines, pivot_element, dependent_element)
-    column_labels, beam_labels = getLabelsList(labels_lines)
 
-    if pivot_element == "column":
-        assignLabels(pivotItemsList, column_labels)
-        assignLabels(dependentItemsList, beam_labels)
-    elif pivot_element == "beam":
-        assignLabels(pivotItemsList, beam_labels)
-        assignLabels(dependentItemsList, column_labels)
-
-    output = checkMinimumDistance(predictions_path, pivotItemsList, dependentItemsList)
 
 ########################################################
 
 #Verifico cantidad de parametros
 if len(sys.argv) < 5:
     print('Falta un argumento --> predictionsFile_path labelsPath cota pivot dependent')
-    exit(0)
+    sys.exit()
 
 #Asigno los parametros
-predictions_path = sys.argv[1]
-labels_path = sys.argv[2]
+main_predictions_path = sys.argv[1]
+main_labels_path = sys.argv[2]
 cota = int(sys.argv[3])
 
-pivot_element = sys.argv[4]
-dependent_element = sys.argv[5]
+main_pivot_element = sys.argv[4]
+main_dependent_element = sys.argv[5]
 
 posibles = ['beam', 'column', 'slab']
 
-if pivot_element not in posibles or dependent_element not in posibles:
+if main_pivot_element not in posibles or main_dependent_element not in posibles:
     print('Elemento pivote o dependiente invalido. Opciones: beam, column, slab')
-    exit(0)
+    sys.exit()
 
 
-if os.path.isdir(predictions_path):
-    for filename in os.listdir(predictions_path):
+if os.path.isdir(main_predictions_path):
+    for filename in os.listdir(main_predictions_path):
         if filename.startswith("pred_") and '_relacionados' not in filename:
-            predictions_path = os.getcwd() + '/' + filename
-            print(predictions_path)
-            readAndGet(predictions_path, pivot_element, dependent_element)
+            main_predictions_path = os.getcwd() + '/' + filename
+            print(main_predictions_path)
+            read_and_get(main_predictions_path, main_pivot_element)
     print('Proceso terminado ... \n')
-    exit(0)
+    sys.exit()
 
-readAndGet(predictions_path, labels_path, pivot_element, dependent_element)
+read_and_get(main_predictions_path, main_labels_path, main_pivot_element)
 print('Proceso terminado ... \n')
 
 #Guardo el output en relacionados.json
-exit(0)
+sys.exit()
