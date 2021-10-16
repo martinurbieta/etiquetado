@@ -90,7 +90,13 @@ def check_minimum_distance(predictions_path, pivot_items, dependent_items):
     with open(predictions_filename,'w') as txt: #abro en modo escritura
 
         for pivot_item in pivot_items:
+            auxpivot = pivot_item.copy()
+            auxcercanos = []
             cercanos = []
+            auxpivot['points'] = [(int(auxpivot['points']['x1']), int(auxpivot['points']['y1'])),
+                            (int(auxpivot['points']['x1']), int(auxpivot['points']['y2'])),
+                            (int(auxpivot['points']['x2']), int(auxpivot['points']['y1'])),
+                            (int(auxpivot['points']['x2']), int(auxpivot['points']['y2']))]
             pivot_points = pivot_item['points']
             pivot = Polygon([(int(pivot_points['x1']), int(pivot_points['y1'])-OFFSET),
                             (int(pivot_points['x1']), int(pivot_points['y2'])-OFFSET),
@@ -98,6 +104,7 @@ def check_minimum_distance(predictions_path, pivot_items, dependent_items):
                             (int(pivot_points['x2']), int(pivot_points['y2'])-OFFSET)])
 
             for dependent_item in dependent_items:
+                auxdependent = dependent_item.copy()
                 dependent_points = dependent_item['points']
                 dependent = Polygon(
                     [(int(dependent_points['x1']),int(dependent_points['y1'])-OFFSET),
@@ -110,12 +117,18 @@ def check_minimum_distance(predictions_path, pivot_items, dependent_items):
                 #Si la distancia es menor a una cota determinada, 
                 #guardo el elemento dependiente como cercano
                 if points_distance < cota:
+                    auxdependent['points'] = [(int(auxdependent['points']['x1']),int(auxdependent['points']['y1'])),
+                    (int(auxdependent['points']['x1']),int(auxdependent['points']['y2'])),
+                    (int(auxdependent['points']['x2']),int(auxdependent['points']['y1'])),
+                    (int(auxdependent['points']['x2']),int(auxdependent['points']['y2']))]
+                    auxcercanos.append(auxdependent)
                     cercanos.append(dependent_item)
 
 
+            auxpivot["relItems"] = auxcercanos
             pivot_item["relItems"] = cercanos
             #escribo el elemento pivot con sus relacionados
-            txt.write((str(pivot_item) + '\n'))
+            txt.write((str(auxpivot) + '\n'))
 
         #Aplico a la salida formato pseudo json
         txt.close()
