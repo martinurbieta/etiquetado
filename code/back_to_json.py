@@ -35,13 +35,29 @@ annotation = {
     "imageData": img_arr_to_b64(im),
     "fillColor": [255, 0, 0, 128]
 }
-contours = measure.find_contours(mask, 0.5)
+
+img = cv2.imread("E010-MUN-01.png", cv2.IMREAD_UNCHANGED)
+
+img_grey = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+#set a thresh
+thresh = 100
+#get threshold image
+ret,thresh_img = cv2.threshold(img_grey, thresh, 255, cv2.THRESH_BINARY)
+
+#contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+contours = measure.find_contours(thresh_img, 0.5)
 contours = sorted(contours, key=len, reverse=True)[:1]
+#print(contours)
 for n, contour in enumerate(contours):
+    #print(contour)
     coords = measure.approximate_polygon(contour, tolerance=3)[:-1]
+    #print(coords)
     segmentation = np.flip(coords, axis=1).tolist()
+    #print(segmentation)
     annotation["shapes"][0]["points"] = segmentation
 
 file = file_name.replace(".jpg", ".json")
-with open(file, 'w') as outfile:
-    json.dump(annotation, outfile, indent=2)
+with open(file, 'w', encoding='utf8') as outfile:
+    print(annotation)
+    json.dump(annotation, outfile, indent=2, ensure_ascii=False)
