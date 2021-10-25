@@ -1,0 +1,6 @@
+_background_
+column
+door
+gate
+wall
+window
