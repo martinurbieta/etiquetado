@@ -1,5 +1,0 @@
-_background_
-column
-door
-wall
-window
