@@ -12,7 +12,7 @@ import sys
 def resize_image(filename):
     img = cv2.imread(filename, 1)
     print(filename)
-    img_half = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+    img_half = cv2.resize(img, (0, 0), fx=0.3, fy=0.3)
     cv2.imwrite(filename, img_half)
 
 
@@ -58,7 +58,7 @@ def scale(label_json, scale, jsonfile):
 
 def scale_label(file):
     label = get_label(file)
-    scale(label, 0.5, file)
+    scale(label, 0.3, file)
 
 
 if len(sys.argv) < 1:
