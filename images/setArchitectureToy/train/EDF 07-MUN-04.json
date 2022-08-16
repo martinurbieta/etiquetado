@@ -1,0 +1,74 @@
+{
+  "version": "4.5.7",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "wall",
+      "points": [
+        [
+          432.7217125382263,
+          2111.9266055045873
+        ],
+        [
+          443.573264781491,
+          2449.6143958868893
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "wall",
+      "points": [
+        [
+          441.1311053984576,
+          2436.632390745501
+        ],
+        [
+          584.1902313624679,
+          2449.357326478149
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "wall",
+      "points": [
+        [
+          440.1880141010576,
+          2111.750881316099
+        ],
+        [
+          584.7238542890717,
+          2123.6192714453587
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "wall",
+      "points": [
+        [
+          592.0094007050529,
+          2112.3384253819036
+        ],
+        [
+          581.433607520564,
+          2450.2937720329023
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "EDF 07-MUN-04.jpg",
+  "imageData": null,
+  "imageHeight": 3600,
+  "imageWidth": 1280
+}
